@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'users',
         'passwords' => 'users',
     ],
 
@@ -40,6 +40,21 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'users' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'owners' => [
+            'driver' => 'session',
+            'provider' => 'owners',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
     ],
 
     /*
@@ -61,9 +76,26 @@ return [
 
     'providers' => [
         'users' => [
+
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'owners' => [
+            
+            'driver' => 'eloquent',
+            'model' => App\Models\Owners::class,
+        ],
+        'admin' => [
+            
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+
+        'api' =>[
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',
@@ -90,8 +122,20 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
+            'expire' => 60, //期限
+            'throttle' => 60,//ログイン失敗したときのログイン制限時間
+        ],
+        'owners' => [
+            'provider' => 'users',
+            'table' => 'owner_password_resets',
+            'expire' => 60, //期限
+            'throttle' => 60,//ログイン失敗したときのログイン制限時間
+        ],
+        'admin' => [
+            'provider' => 'users',
+            'table' => 'admin_password_resets',
+            'expire' => 60, //期限
+            'throttle' => 60,//ログイン失敗したときのログイン制限時間
         ],
     ],
 
