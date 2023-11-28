@@ -5,16 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Shop;
+use App\Models\Image;
 
-
-class Owner extends Authenticatable //Authenticatableは認証機能が入っている
+class Owner extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    /**
+        /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $fillable = [
         'name',
@@ -23,9 +25,9 @@ class Owner extends Authenticatable //Authenticatableは認証機能が入って
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that should be hidden for arrays.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $hidden = [
         'password',
@@ -33,12 +35,21 @@ class Owner extends Authenticatable //Authenticatableは認証機能が入って
     ];
 
     /**
-     * The attributes that should be cast.
+     * The attributes that should be cast to native types.
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
+    public function shop()
+    {
+        return $this->hasOne(Shop::class);
+    }
+
+    public function image()
+    {
+        return $this->hasMany(Image::class);
+    }
 }

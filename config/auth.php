@@ -31,7 +31,7 @@ return [
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
-    | Supported: "session"
+    | Supported: "session", "token"
     |
     */
 
@@ -55,6 +55,12 @@ return [
             'driver' => 'session',
             'provider' => 'admin',
         ],
+
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -76,26 +82,19 @@ return [
 
     'providers' => [
         'users' => [
-
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+
         'owners' => [
-            
             'driver' => 'eloquent',
-            'model' => App\Models\Owners::class,
+            'model' => App\Models\Owner::class,
         ],
+
         'admin' => [
-            
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],
-
-        'api' =>[
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
-        ]
 
         // 'users' => [
         //     'driver' => 'database',
@@ -112,7 +111,7 @@ return [
     | than one user table or model in the application and you want to have
     | separate password reset settings based on the specific user types.
     |
-    | The expire time is the number of minutes that each reset token will be
+    | The expire time is the number of minutes that the reset token should be
     | considered valid. This security feature keeps tokens short-lived so
     | they have less time to be guessed. You may change this as needed.
     |
@@ -122,21 +121,24 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
-            'expire' => 60, //期限
-            'throttle' => 60,//ログイン失敗したときのログイン制限時間
+            'expire' => 60,
+            'throttle' => 60,
         ],
+        
         'owners' => [
-            'provider' => 'users',
+            'provider' => 'owners',
             'table' => 'owner_password_resets',
-            'expire' => 60, //期限
-            'throttle' => 60,//ログイン失敗したときのログイン制限時間
+            'expire' => 60,
+            'throttle' => 60,
         ],
+
         'admin' => [
-            'provider' => 'users',
+            'provider' => 'admin',
             'table' => 'admin_password_resets',
-            'expire' => 60, //期限
-            'throttle' => 60,//ログイン失敗したときのログイン制限時間
+            'expire' => 60,
+            'throttle' => 60,
         ],
+
     ],
 
     /*

@@ -13,7 +13,7 @@ class SampleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        app()->bind('ServiceProviderTest', function(){
+        app()->bind('serviceProviderTest', function(){
             return 'サービスプロバイダテスト';
         });
     }
