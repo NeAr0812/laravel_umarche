@@ -1,9 +1,12 @@
 <x-guest-layout>
     <x-auth-card>
+        管理者用
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
+            <div class="w-28">
+                <a href="/">  
+                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                </a>
+            </div>
         </x-slot>
 
         <!-- Session Status -->
@@ -12,7 +15,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('admin_login') }}">
+        <form method="POST" action="{{ route('admin.login') }}">
             @csrf
 
             <!-- Email Address -->
