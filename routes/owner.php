@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('owner.welcome');
-// });
+Route::get('/', function () {
+    return view('owner.welcome');
+});
 
 
 
